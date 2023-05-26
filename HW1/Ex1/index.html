@@ -1,8 +1,45 @@
 <script>
 
-let a = 0
-console.log(a)
+let arr = [5, 4, 2, 1, 7, 2]
 
+function selection(array, arrSize, rootIndex){
+    let maxi = rootIndex
+    let firstChild = rootIndex * 2 + 1
+    let secondChild = rootIndex * 2 + 2
+
+    if ((firstChild < arrSize) && (array[firstChild] > array[maxi])){
+        maxi = firstChild
+    }
+
+    if ((secondChild < arrSize) && (array[secondChild] > array[maxi])){
+        maxi = secondChild
+    }
+
+    if (rootIndex != maxi){
+        let temp = array[rootIndex]
+        array[rootIndex] = array[maxi]
+        array[maxi] = temp
+        selection(array, arrSize, maxi)
+    }
+
+}
+
+function pyramidSort(array){
+
+    for (let i = Math.floor(array.length / 2) - 1; i >= 0; i--){
+        selection(array, array.length, i)
+    } 
+
+    for (let i = array.length - 1; i >= 0; i--){
+        let temp = array[0]
+        array[0] = array[i]
+        array[i] = temp
+
+        selection(array, i, 0)
+    }
+} 
+
+console.log(pyramidSort(arr))
 
 
 
